@@ -1,0 +1,133 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[left=0.6in,right=0.6in,top=0.5in,bottom=0.5in]{geometry}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage[hidelinks]{hyperref}
+
+\hypersetup{
+  pdftitle={Zihang Zhou -- Curriculum Vitae},
+  pdfauthor={Zihang Zhou},
+  pdfsubject={Education, publications, and research experience}
+}
+\urlstyle{same}
+\pagestyle{plain}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{3pt}
+\setlength{\emergencystretch}{2em}
+\setlength{\footskip}{18pt}
+\raggedbottom
+
+\titleformat{\section}{\large\bfseries}{}{0pt}{}[\titlerule]
+\titlespacing*{\section}{0pt}{11pt}{6pt}
+\setlist[itemize]{leftmargin=1.2em,topsep=3pt,itemsep=2pt,parsep=0pt}
+\setlist[enumerate]{leftmargin=1.65em,label={[\arabic*]},topsep=3pt,itemsep=9pt,parsep=2pt}
+
+\newcommand{\cvrole}[4]{%
+  \textbf{#1}\hfill #2\par
+  \textit{#3}\hfill \textit{#4}\par
+}
+\newcommand{\myname}{\textbf{Zihang Zhou}}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Zihang Zhou}\\[5pt]
+  \href{mailto:zzh2024@sjtu.edu.cn}{zzh2024@sjtu.edu.cn}
+  \enspace\textbar\enspace
+  \href{https://zi-hang-zhou.github.io}{zi-hang-zhou.github.io}
+  \enspace\textbar\enspace
+  \href{https://github.com/Zi-hang-Zhou}{GitHub: Zi-hang-Zhou}
+\end{center}
+\vspace{-5pt}
+
+\section{Education}
+\cvrole{Shanghai Jiao Tong University (SJTU)}{Sep 2024 -- Present}
+       {B.Eng. Candidate in Artificial Intelligence, School of AI}{Shanghai, China}
+\begin{itemize}
+  \item \textbf{GPA:} 4.04/4.3 \enspace\textbar\enspace \textbf{Average:} 92.7/100.
+  \item Early admission in Grade 11; Gaokao rank in the top 0.05\% in Jiangsu.
+\end{itemize}
+
+\section{Honors \& Awards}
+\textbf{National Scholarship} (top 0.5\%)\hfill Oct 2025\par
+\textbf{Zhiyuan Honorary Scholarship}
+
+\section{Research Interests}
+Self-evolving LLM agents; tool learning; evaluation; reliable and reproducible agentic systems.
+
+\section{Publications \& Preprints}
+\begin{enumerate}
+  \item \textbf{Agentic Time Machine as an Infrastructure for Future-Event Forecasting}\\
+  Jingyi Chai, Bingyang Zheng, Xiangrui Liu, Hao Lu, \myname, Tianchen Wang, Kemeng Zhang, Siheng Chen.\\
+  \textit{EMNLP 2026 Main Conference (Oral).}
+  \href{https://arxiv.org/abs/2606.21013}{arXiv:2606.21013}.
+
+  \item \textbf{SetupX: Can LLM Agents Learn from Past Failures in Functionality-Correct Code Repository Setup?}\\
+  \myname, Ziqian Ren, Yukai Wu, Yingjie Xiong, Wei Zhou, Chao Peng, Dong Zhang, Bingheng Yan, Xuanhe Zhou, Fan Wu.\\
+  \textit{Under review at NeurIPS 2026.}
+  \href{https://arxiv.org/abs/2605.26186}{arXiv:2605.26186}
+  \enspace\textbar\enspace
+  \href{https://github.com/Zi-hang-Zhou/SetupX}{Code}.
+
+  \item \textbf{Workspace-Bench 1.0: Benchmarking AI Agents on Workspace Tasks with Large-Scale File Dependencies}\\
+  Zirui Tang, Xuanhe Zhou, Yumou Liu, Linchun Li, Yukai Wu, Weizheng Wang, Hongzhang Huang, Wei Zhou, Jun Zhou, Jiachen Song, Shaoli Yu, Jinqi Wang, \myname, Hongyi Zhou, Yuting Lv, Jinyang Li, Jiashuo Liu, Ruoyu Chen, Chunwei Liu, Guoliang Li, Jihua Kang, Fan Wu.\\
+  \textit{Under review at NeurIPS 2026.}
+  \href{https://arxiv.org/abs/2605.03596}{arXiv:2605.03596}.
+
+  \item \textbf{LLM/Agent-as-Data-Analyst: A Survey}\\
+  Zirui Tang, Weizheng Wang, \myname, Yang Jiao, Bangrui Xu, Boyu Niu, Dayou Zhou, Xuanhe Zhou, Guoliang Li, Yeye He, Wei Zhou, Yitong Song, Cheng Tan, Xue Yang, Chunwei Liu, Bin Wang, Conghui He, Xiaoyang Wang, Fan Wu.\\
+  \textit{Under review at IEEE Transactions on Knowledge and Data Engineering (TKDE).}
+  \href{https://arxiv.org/abs/2509.23988}{arXiv:2509.23988}.
+\end{enumerate}
+
+\newpage
+
+\section{Research \& Internship Experience}
+\cvrole{Microsoft Research Asia (MSRA)}{Jun 2026 -- Present}
+  {Intern}{Shanghai Office}
+\begin{itemize}
+  \item Designed enterprise workflow tasks and evaluation datasets.
+  \item Defined evaluation metrics and developed an evaluation framework.
+\end{itemize}
+
+\vspace{5pt}
+\cvrole{Multi-Agent Governance \& Intelligence Crew (MAGIC)}{Apr 2026 -- Jun 2026}
+       {Undergraduate Researcher}{Agentic Time Machine}
+\begin{itemize}
+  \item Evaluated forecasting agents for \textit{Agentic Time Machine as an Infrastructure for Future-Event Forecasting}.
+\end{itemize}
+
+\vspace{5pt}
+\cvrole{SJTU Data Analysis Study Group}{Oct 2025 -- Apr 2026}
+       {Undergraduate Researcher}{SetupX}
+\begin{itemize}
+  \item Developed an autonomous repository-setup agent with a retrieval-augmented generation (RAG) experience store to learn from past failures.
+  \item Refined agent--environment interaction for repository setup.
+  \item First author of SetupX; repository: \href{https://github.com/Zi-hang-Zhou/SetupX}{github.com/Zi-hang-Zhou/SetupX}.
+\end{itemize}
+
+\vspace{5pt}
+\cvrole{SJTU Data Analysis Study Group}{Jun 2025 -- Oct 2025}
+       {Undergraduate Researcher}{LLM/Agent-as-Data-Analyst Survey}
+\begin{itemize}
+  \item Authored the Video and 3D Models sections of \textit{LLM/Agent-as-Data-Analyst: A Survey}.
+  \item Curated the accompanying resource collection: \href{https://github.com/weAIDB/awesome-data-llm}{github.com/weAIDB/awesome-data-llm}.
+\end{itemize}
+
+\section{Technical Skills}
+\begin{itemize}[label={},leftmargin=0pt,itemsep=4pt]
+  \item \textbf{Programming:} Python, C++.
+  \item \textbf{Libraries \& Frameworks:} PyTorch, NumPy, pandas, Matplotlib, LangChain.
+  \item \textbf{Tools:} Docker, Git, \LaTeX.
+  \item \textbf{Machine Learning:} Model training and evaluation; LLM tool use; retrieval-augmented generation; multi-agent systems.
+\end{itemize}
+
+\section{Selected Coursework}
+\begin{itemize}[label={},leftmargin=0pt,itemsep=4pt]
+  \item \textbf{Mathematics:} Mathematical Analysis, Linear Algebra, Numerical Analysis, Probability and Statistics, Discrete Mathematics.
+  \item \textbf{Computer Science \& AI:} Data Structures, Algorithms, C++, Machine Learning, Deep Learning, Reinforcement Learning, Robotics, Computer Architecture.
+\end{itemize}
+
+\end{document}

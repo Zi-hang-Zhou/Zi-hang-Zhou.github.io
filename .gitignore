@@ -1,0 +1,6 @@
+node_modules/
+.DS_Store
+cv/*.aux
+cv/*.log
+cv/*.out
+cv/*.toc

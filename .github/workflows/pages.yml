@@ -1,0 +1,37 @@
+name: Deploy academic homepage
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: pages
+  cancel-in-progress: false
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm run build && npm test
+      - name: Stage public website only
+        run: |
+          mkdir -p _site/cv
+          cp index.html 404.html styles.css app.js theme.js robots.txt sitemap.xml .nojekyll _site/
+          cp -r assets publications projects credits _site/
+          cp cv/index.html cv/Zihang-Zhou-CV.pdf _site/cv/
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4
