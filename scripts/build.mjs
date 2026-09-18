@@ -39,7 +39,7 @@ function timeline() {
 }
 
 function education() {
-  return `<div class="education-card"><span class="eyebrow">2024 — PRESENT</span><h3>Shanghai Jiao Tong University</h3><p>B.Eng. Candidate in Artificial Intelligence<br>School of Artificial Intelligence</p><div class="education-metrics"><div><strong>4.04<span> / 4.3</span></strong><small>GPA</small></div><div><strong>92.7</strong><small>Average score</small></div></div><ul class="clean-list"><li><strong>National Scholarship</strong> · October 2025</li><li>Zhiyuan Honorary Scholarship</li><li>Admitted one year early through Gaokao, in Grade 11</li></ul></div>`;
+  return `<div class="education-card"><span class="eyebrow">2024 — PRESENT</span><h3>Shanghai Jiao Tong University</h3><p>B.Eng. Candidate in Artificial Intelligence<br>School of Artificial Intelligence</p><p class="education-grades">GPA: 4.04 / 4.3 · Average score: 92.7</p><ul class="clean-list"><li><strong>National Scholarship</strong> · October 2025</li><li>Zhiyuan Honorary Scholarship</li><li>Admitted one year early through Gaokao, in Grade 11</li></ul></div>`;
 }
 
 function projectGrid(prefix) {
