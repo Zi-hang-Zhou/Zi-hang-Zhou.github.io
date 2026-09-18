@@ -5,7 +5,13 @@
   "scripts": {
     "build": "node scripts/build.mjs",
     "test": "node scripts/check.mjs",
+    "test:browser": "node scripts/browser-check.mjs",
     "start": "node scripts/serve.mjs"
   },
-  "engines": { "node": ">=20" }
+  "engines": {
+    "node": ">=20"
+  },
+  "devDependencies": {
+    "playwright": "^1.63.0"
+  }
 }
