@@ -64,6 +64,7 @@ try {
         const response=await page.goto(base+route);
         assert.equal(response.status(),200);
         assert.equal(await page.locator('html').getAttribute('data-theme'),theme);
+        assert(!/author[- ]provided|(?:supplied|reported) by (?:the author|Zihang Zhou)|not independently (?:established|confirmed)/i.test(await page.locator('body').innerText()));
         const layout=await page.evaluate(()=>({width:innerWidth,scroll:document.documentElement.scrollWidth}));
         assert.equal(layout.width,width);
         assert(layout.scroll<=width,`Overflow at ${width}: ${route} (${layout.scroll})`);
@@ -90,11 +91,8 @@ try {
   await page.screenshot({path:output+'/mobile-dark.png',animations:'disabled'});
   await page.goto(base+'/publications/');
   assert.equal(await page.locator('.paper-card:visible').count(),4);
-  await page.locator('[data-filter=accepted]').click();
-  assert.equal(await page.locator('.paper-card:visible').count(),1);
-  await page.locator('[data-filter=preprint]').click();
-  assert.equal(await page.locator('.paper-card:visible').count(),3);
-  await page.locator('[data-filter=all]').click();
+  assert.equal(await page.locator('.page-intro').innerText(),'Publications');
+  assert.equal(await page.locator('[data-filter], .publication-note, .sources-note').count(),0);
   await page.locator('#setupx summary').click();
   assert(await page.locator('#setupx .authors').evaluate(el=>el.open));
   await page.locator('#setupx .cite-button').click();
@@ -115,6 +113,7 @@ try {
   assert.equal(await page.locator('.profile-card').count(),0);
   assert.equal(await page.locator('.project-row').count(),4);
   assert.equal(await page.locator('.hero h1').innerText(),"Hi, I'm\nZihang Zhou");
+  assert.equal(await page.locator('.hero-subtitle, .hero-description').count(),0);
   const rows=await page.locator('.project-row').evaluateAll(elements=>elements.map(el=>({image:getComputedStyle(el.querySelector('.project-visual')).order,text:getComputedStyle(el.querySelector('.project-info')).order})));
   assert.equal(rows[1].image,'2');
   assert.equal(rows[1].text,'1');
@@ -134,7 +133,7 @@ try {
   await page.getByRole('button',{name:'Switch to light theme',exact:true}).click();
   await page.screenshot({path:output+'/publications-light.png',animations:'disabled'});
   assert.deepEqual(errors,[]);
-  console.log('PASS filters, authors, citations, lightbox/Escape, theme persistence, PDF, 404, zero JavaScript errors');
+  console.log('PASS minimal headings, removed subtitles/disclaimers, authors, citations, lightbox/Escape, theme persistence, PDF, 404, zero JavaScript errors');
   await context.close();
   const nojs=await browser.newContext({javaScriptEnabled:false});const basic=await nojs.newPage();await basic.goto(base+'/publications/');assert.equal(await basic.locator('.paper-card').count(),4);await basic.goto(base+'/');assert.equal(await basic.locator('.project-row:visible').count(),4);console.log('PASS content readable without JavaScript');await nojs.close();
   const reduced=await browser.newContext({reducedMotion:'reduce'});const still=await reduced.newPage();await still.goto(base+'/');assert.equal(await still.locator('.reveal-ready').count(),0);assert.equal(await still.locator('.gradient-orb').first().evaluate(el=>getComputedStyle(el).animationName),'none');console.log('PASS reduced motion');await reduced.close();

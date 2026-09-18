@@ -34,6 +34,7 @@
     "figure": "Figure 2 · SetupX system overview",
     "source": "https://arxiv.org/html/2605.26186v2/framework.png",
     "license": "arXiv non-exclusive distribution license; figure supplied for reuse at the author’s request, not relicensed by this site.",
+    "licenseLabel": "arXiv non-exclusive distribution license. Copyright remains with the original authors.",
     "code": "https://github.com/Zi-hang-Zhou/SetupX",
     "upstream": "https://github.com/OpenDataBox/SetupX",
     "tags": ["Self-evolving agents", "Repository automation", "Verification"]

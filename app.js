@@ -15,18 +15,6 @@ themeButton.addEventListener('click', () => {
   updateThemeLabel();
 });
 const announce = message => { document.querySelector('#live-status').textContent = message; };
-document.querySelectorAll('[data-filter]').forEach(button => {
-  button.addEventListener('click', () => {
-    const selected = button.dataset.filter;
-    document.querySelectorAll('[data-filter]').forEach(b => b.setAttribute('aria-pressed', String(b === button)));
-    let count = 0;
-    document.querySelectorAll('.paper-card').forEach(card => {
-      card.hidden = selected !== 'all' && selected !== card.dataset.kind;
-      if (!card.hidden) count++;
-    });
-    announce(`${count} publications shown`);
-  });
-});
 document.querySelectorAll('.cite-button').forEach(button => {
   button.addEventListener('click', () => {
     const panel = document.getElementById(button.dataset.cite);
