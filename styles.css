@@ -177,10 +177,6 @@ nav a:hover,nav a[aria-current=page] { color:var(--accent); }
 .education-card { padding-bottom:20px; }
 .education-card h3 { margin-bottom:14px; }
 .education-card p { color:var(--muted); }
-.education-metrics { display:flex; gap:40px; margin:24px 0; }
-.education-metrics strong { font-size:1.75rem; }
-.education-metrics strong span { font-size:.9rem; color:var(--muted); }
-.education-metrics small { display:block; color:var(--muted); }
 .clean-list { padding-left:20px; color:var(--muted); }
 .cv-layout .timeline article { grid-template-columns:160px 1fr; gap:24px; }
 .cv-layout .timeline h3 { font-size:1.15rem; }

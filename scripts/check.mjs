@@ -36,4 +36,7 @@ for (const p of papers) {
 const pdf=readFileSync(path.join(root,'cv/Zihang-Zhou-CV.pdf'));
 assert.equal(pdf.subarray(0,5).toString(),'%PDF-');
 assert(existsSync(path.join(root,'assets/avatar.png')));
+const cv=readFileSync(path.join(root,'cv/index.html'),'utf8');
+assert(cv.includes('<p class="education-grades">GPA: 4.04 / 4.3 · Average score: 92.7</p>'), 'Grades use plain prose with unchanged values');
+assert(!cv.includes('education-metrics'), 'No oversized grade statistics');
 console.log(`PASS: ${pages.length} pages, ${refs} local references, four paper figures/authorship records, PDF, no placeholders or removed experience.`);
