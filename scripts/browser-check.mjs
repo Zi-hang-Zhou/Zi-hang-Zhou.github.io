@@ -64,6 +64,9 @@ try {
         const response=await page.goto(base+route);
         assert.equal(response.status(),200);
         assert.equal(await page.locator('html').getAttribute('data-theme'),theme);
+        if (route === '/' || route === '/cv/') {
+          assert.deepEqual(await page.locator('.timeline-date').allTextContents(), ['JUN 2026 — PRESENT', 'APR 2026 — JUN 2026', 'OCT 2025 — APR 2026', 'JUN 2025 — OCT 2025']);
+        }
         assert(!/author[- ]provided|(?:supplied|reported) by (?:the author|Zihang Zhou)|not independently (?:established|confirmed)/i.test(await page.locator('body').innerText()));
         const layout=await page.evaluate(()=>({width:innerWidth,scroll:document.documentElement.scrollWidth}));
         assert.equal(layout.width,width);

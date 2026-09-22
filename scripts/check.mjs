@@ -67,5 +67,9 @@ assert(!/data-filter=|class="filters"|publication-note|sources-note/.test(public
 assert.equal((publications.match(/class="paper-card"/g)||[]).length, 4, 'All four papers remain listed');
 const home=readFileSync(path.join(root,'index.html'),'utf8');
 assert(!/hero-subtitle|hero-description|Developer &amp; Researcher|LLM agents, tool learning, and evaluation\./.test(home), 'Home omits the removed subtitles');
+const experienceDates = ['JUN 2026 — PRESENT', 'APR 2026 — JUN 2026', 'OCT 2025 — APR 2026', 'JUN 2025 — OCT 2025'];
+for (const [name,html] of [['Home',home],['CV',cv]]) {
+  assert.deepEqual([...html.matchAll(/<div class="timeline-date">([^<]+)<\/div>/g)].map(m=>m[1]), experienceDates, `${name}: both ends of experience dates include their year`);
+}
 console.log('PASS: minimal publication heading, no filters or author-provided disclaimers, concise credits, preserved paper sources/licenses and MIT notice.');
 console.log(`PASS: ${pages.length} pages, ${refs} local references, four paper figures/authorship records, PDF, no placeholders or removed experience.`);

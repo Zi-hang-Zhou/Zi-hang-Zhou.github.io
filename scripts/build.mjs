@@ -32,9 +32,9 @@ function paperCard(p, prefix) {
 function timeline() {
   return `<div class="timeline">
     <article><div class="timeline-date">JUN 2026 — PRESENT</div><div><h3>Microsoft Research Asia</h3><p class="role">Intern · Shanghai Office</p><p>Designing enterprise workflow tasks and evaluation datasets, and developing metrics and an evaluation framework for LLMs and agents.</p></div></article>
-    <article><div class="timeline-date">APR — JUN 2026</div><div><h3>MAGIC · Shanghai Jiao Tong University</h3><p class="role">Undergraduate Researcher · Agentic Time Machine</p><p>Evaluated agents equipped with Time Machine infrastructure on future-event forecasting tasks.</p></div></article>
+    <article><div class="timeline-date">APR 2026 — JUN 2026</div><div><h3>MAGIC · Shanghai Jiao Tong University</h3><p class="role">Undergraduate Researcher · Agentic Time Machine</p><p>Evaluated agents equipped with Time Machine infrastructure on future-event forecasting tasks.</p></div></article>
     <article><div class="timeline-date">OCT 2025 — APR 2026</div><div><h3>SJTU Data Analysis Study Group</h3><p class="role">Undergraduate Researcher · SetupX</p><p>Developed an autonomous repository-setup agent with retrieval-augmented experience reuse and refined its agent–environment interaction loop.</p></div></article>
-    <article><div class="timeline-date">JUN — OCT 2025</div><div><h3>SJTU Data Analysis Study Group</h3><p class="role">Undergraduate Researcher · Data-Analyst Survey</p><p>Authored the video and 3D-model analysis sections and curated the accompanying research repository.</p></div></article>
+    <article><div class="timeline-date">JUN 2025 — OCT 2025</div><div><h3>SJTU Data Analysis Study Group</h3><p class="role">Undergraduate Researcher · Data-Analyst Survey</p><p>Authored the video and 3D-model analysis sections and curated the accompanying research repository.</p></div></article>
   </div>`;
 }
 
