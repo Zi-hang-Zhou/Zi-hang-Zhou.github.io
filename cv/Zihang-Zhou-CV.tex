@@ -1,133 +1,224 @@
-\documentclass[11pt,a4paper]{article}
+\documentclass[a4paper,11pt]{article}
 
+% --- PACKAGES ---
 \usepackage[T1]{fontenc}
-\usepackage[left=0.6in,right=0.6in,top=0.5in,bottom=0.5in]{geometry}
 \usepackage{enumitem}
-\usepackage{titlesec}
 \usepackage[hidelinks]{hyperref}
+\usepackage{geometry}
+\usepackage{titlesec}
+\usepackage[normalem]{ulem}
 
-\hypersetup{
-  pdftitle={Zihang Zhou -- Curriculum Vitae},
-  pdfauthor={Zihang Zhou},
-  pdfsubject={Education, publications, and research experience}
+% --- PAPER LINKS ---
+\newcommand{\paperlink}[2]{\href{#1}{\uline{#2}}}
+
+% --- PAGE LAYOUT ---
+\geometry{
+    left=0.6in,
+    right=0.6in,
+    top=0.5in,
+    bottom=0.5in
 }
-\urlstyle{same}
-\pagestyle{plain}
+\pagestyle{empty}
 \setlength{\parindent}{0pt}
-\setlength{\parskip}{3pt}
+\setlength{\parskip}{0pt}
 \setlength{\emergencystretch}{2em}
-\setlength{\footskip}{18pt}
-\raggedbottom
+\urlstyle{same}
 
-\titleformat{\section}{\large\bfseries}{}{0pt}{}[\titlerule]
-\titlespacing*{\section}{0pt}{11pt}{6pt}
-\setlist[itemize]{leftmargin=1.2em,topsep=3pt,itemsep=2pt,parsep=0pt}
-\setlist[enumerate]{leftmargin=1.65em,label={[\arabic*]},topsep=3pt,itemsep=9pt,parsep=2pt}
-
-\newcommand{\cvrole}[4]{%
-  \textbf{#1}\hfill #2\par
-  \textit{#3}\hfill \textit{#4}\par
+% --- LIST FORMATTING ---
+\setlist[itemize]{
+    leftmargin=1.4em,
+    topsep=2pt,
+    itemsep=1pt,
+    parsep=0pt,
+    partopsep=0pt
 }
-\newcommand{\myname}{\textbf{Zihang Zhou}}
+
+% --- SECTION HEADINGS ---
+\titleformat{\section}
+    {\large\bfseries}
+    {}{0pt}
+    {\underline}
+\titlespacing*{\section}{0pt}{11pt}{5pt}
+
+\newcommand{\resheading}[1]{\section*{#1}}
 
 \begin{document}
 
+% --- HEADER ---
 \begin{center}
-  {\LARGE\bfseries Zihang Zhou}\\[5pt]
-  \href{mailto:zzh2024@sjtu.edu.cn}{zzh2024@sjtu.edu.cn}
-  \enspace\textbar\enspace
-  \href{https://zi-hang-zhou.github.io}{zi-hang-zhou.github.io}
-  \enspace\textbar\enspace
-  \href{https://github.com/Zi-hang-Zhou}{GitHub: Zi-hang-Zhou}
+    {\LARGE \textbf{Zihang Zhou}} \\
+    \href{mailto:zzh2024@sjtu.edu.cn}{zzh2024@sjtu.edu.cn}
+    \enspace\textbullet\enspace
+    \href{https://github.com/Zi-Hang-Zhou}{github.com/Zi-hang-Zhou}
 \end{center}
-\vspace{-5pt}
+\vspace{-6pt}
 
-\section{Education}
-\cvrole{Shanghai Jiao Tong University (SJTU)}{Sep 2024 -- Present}
-       {B.Eng. Candidate in Artificial Intelligence, School of AI}{Shanghai, China}
+% --- EDUCATION ---
+\resheading{EDUCATION}
+
+\textbf{Shanghai Jiao Tong University (SJTU)}
+\hfill Shanghai, China \\
+School of Artificial Intelligence
+\hfill \emph{Sep 2024 -- Present} \\
+\emph{B.Eng. Candidate in Artificial Intelligence}
 \begin{itemize}
-  \item \textbf{GPA:} 4.04/4.3 \enspace\textbar\enspace \textbf{Average:} 92.7/100.
-  \item Early admission in Grade 11; Gaokao rank in the top 0.05\% in Jiangsu.
+    \item \textbf{GPA: 4.04 / 4.3}
+    (Average Score: \textbf{92.7})
+    \item \textbf{Honors:}
+    \begin{tabular}[t]{@{}l@{}}
+    National Scholarship (Top \textbf{0.5\%}, Oct 2025); \\
+    Zhiyuan Honorary Scholarship.
+    \end{tabular}
+    \item \textbf{Early Admission:} Admitted one year early
+    (Grade 11) via the National College Entrance Exam (Gaokao);
+    ranked in the top \textbf{0.05\%} in Jiangsu Province.
+
 \end{itemize}
 
-\section{Honors \& Awards}
-\textbf{National Scholarship} (top 0.5\%)\hfill Oct 2025\par
-\textbf{Zhiyuan Honorary Scholarship}
+\vspace{2pt}
+\textbf{Research Interests:}
+Self-evolving LLM agents, tool learning, agent evaluation,
+and reliable and reproducible agentic systems.
+% --- PUBLICATIONS & PREPRINTS ---
+\resheading{PUBLICATIONS \& PREPRINTS}
 
-\section{Research Interests}
-Self-evolving LLM agents; tool learning; evaluation; reliable and reproducible agentic systems.
+\begin{enumerate}[
+    label={[\arabic*]},
+    leftmargin=1.8em,
+    topsep=2pt,
+    itemsep=5pt,
+    parsep=0pt,
+    partopsep=0pt
+]
+    \item
+    \emph{\paperlink{https://arxiv.org/abs/2606.21013}{%
+        Agentic Time Machine as an Infrastructure
+        for Future-Event Forecasting}}. \\
+    \textbf{EMNLP 2026 Main Conference (Oral)}.
 
-\section{Publications \& Preprints}
-\begin{enumerate}
-  \item \textbf{Agentic Time Machine as an Infrastructure for Future-Event Forecasting}\\
-  Jingyi Chai, Bingyang Zheng, Xiangrui Liu, Hao Lu, \myname, Tianchen Wang, Kemeng Zhang, Siheng Chen.\\
-  \textit{EMNLP 2026 Main Conference (Oral).}
-  \href{https://arxiv.org/abs/2606.21013}{arXiv:2606.21013}.
+    \item
+    \emph{\paperlink{https://arxiv.org/abs/2605.26186}{%
+        SetupX: Can LLM Agents Learn from Past Failures
+        in Functionality-Correct Code Repository Setup?}}. \\
+    \textbf{First Author}.
+    Under review at \textbf{NeurIPS 2026}.
 
-  \item \textbf{SetupX: Can LLM Agents Learn from Past Failures in Functionality-Correct Code Repository Setup?}\\
-  \myname, Ziqian Ren, Yukai Wu, Yingjie Xiong, Wei Zhou, Chao Peng, Dong Zhang, Bingheng Yan, Xuanhe Zhou, Fan Wu.\\
-  \textit{Under review at NeurIPS 2026.}
-  \href{https://arxiv.org/abs/2605.26186}{arXiv:2605.26186}
-  \enspace\textbar\enspace
-  \href{https://github.com/Zi-hang-Zhou/SetupX}{Code}.
+    \item
+    \emph{\paperlink{https://arxiv.org/abs/2605.03596}{%
+        Workspace-Bench 1.0: Benchmarking AI Agents on
+        Workspace Tasks with Large-Scale File Dependencies}}. \\
+    Under review at \textbf{NeurIPS 2026}.
 
-  \item \textbf{Workspace-Bench 1.0: Benchmarking AI Agents on Workspace Tasks with Large-Scale File Dependencies}\\
-  Zirui Tang, Xuanhe Zhou, Yumou Liu, Linchun Li, Yukai Wu, Weizheng Wang, Hongzhang Huang, Wei Zhou, Jun Zhou, Jiachen Song, Shaoli Yu, Jinqi Wang, \myname, Hongyi Zhou, Yuting Lv, Jinyang Li, Jiashuo Liu, Ruoyu Chen, Chunwei Liu, Guoliang Li, Jihua Kang, Fan Wu.\\
-  \textit{Under review at NeurIPS 2026.}
-  \href{https://arxiv.org/abs/2605.03596}{arXiv:2605.03596}.
-
-  \item \textbf{LLM/Agent-as-Data-Analyst: A Survey}\\
-  Zirui Tang, Weizheng Wang, \myname, Yang Jiao, Bangrui Xu, Boyu Niu, Dayou Zhou, Xuanhe Zhou, Guoliang Li, Yeye He, Wei Zhou, Yitong Song, Cheng Tan, Xue Yang, Chunwei Liu, Bin Wang, Conghui He, Xiaoyang Wang, Fan Wu.\\
-  \textit{Under review at IEEE Transactions on Knowledge and Data Engineering (TKDE).}
-  \href{https://arxiv.org/abs/2509.23988}{arXiv:2509.23988}.
+    \item
+    \emph{\paperlink{https://arxiv.org/abs/2509.23988}{%
+        LLM/Agent-as-Data-Analyst: A Survey}}. \\
+    Under review at \textbf{IEEE TKDE}.
 \end{enumerate}
 
-\newpage
 
-\section{Research \& Internship Experience}
-\cvrole{Microsoft Research Asia (MSRA)}{Jun 2026 -- Present}
-  {Intern}{Shanghai Office}
+% --- INTERNSHIP EXPERIENCE ---
+\resheading{INTERNSHIP EXPERIENCE}
+
+\textbf{Microsoft Research Asia (MSRA)}
+\hfill Shanghai, China \\
+\emph{Research Intern}
+\hfill \emph{Jun 2026 -- Present}
+
 \begin{itemize}
-  \item Designed enterprise workflow tasks and evaluation datasets.
-  \item Defined evaluation metrics and developed an evaluation framework.
+    \item \textbf{Project: Enterprise Workflow Benchmark for LLMs and Agents}
+    \item Designed enterprise workflow tasks and constructed
+    evaluation datasets to assess LLM and agent capabilities
+    in enterprise scenarios.
+    \item Defined evaluation metrics and developed the evaluation
+    framework for systematic assessment of model and agent
+    performance on workflow tasks.
 \end{itemize}
 
-\vspace{5pt}
-\cvrole{Multi-Agent Governance \& Intelligence Crew (MAGIC)}{Apr 2026 -- Jun 2026}
-       {Undergraduate Researcher}{Agentic Time Machine}
+% --- RESEARCH EXPERIENCE ---
+\resheading{RESEARCH EXPERIENCE}
+
+
+\textbf{Multi-Agent Governance \& Intelligence Crew (MAGIC)}
+\hfill Shanghai, China \\
+\emph{Undergraduate Researcher}
+\hfill \emph{Apr 2026 -- Jun 2026}
+
 \begin{itemize}
-  \item Evaluated forecasting agents for \textit{Agentic Time Machine as an Infrastructure for Future-Event Forecasting}.
+    \item \textbf{Project: Agentic Time Machine}
+    \item \textbf{Paper:}
+    \paperlink{https://arxiv.org/abs/2606.21013}{%
+        \emph{Agentic Time Machine as an Infrastructure
+        for Future-Event Forecasting}}.
+    \textbf{EMNLP 2026 Main Conference (Oral)}.
+    \item Evaluated the performance of agents equipped with
+    the Time Machine infrastructure on future-event
+    forecasting tasks.
 \end{itemize}
 
-\vspace{5pt}
-\cvrole{SJTU Data Analysis Study Group}{Oct 2025 -- Apr 2026}
-       {Undergraduate Researcher}{SetupX}
+
+
+\vspace{3pt}
+
+\textbf{SJTU Data Analysis Study Group}
+\hfill Shanghai, China \\
+\emph{Undergraduate Researcher}
+\hfill \emph{Oct 2025 -- Apr 2026}
 \begin{itemize}
-  \item Developed an autonomous repository-setup agent with a retrieval-augmented generation (RAG) experience store to learn from past failures.
-  \item Refined agent--environment interaction for repository setup.
-  \item First author of SetupX; repository: \href{https://github.com/Zi-hang-Zhou/SetupX}{github.com/Zi-hang-Zhou/SetupX}.
+    \item \textbf{Project: SetupX -- Autonomous Repository Setup}
+    \item \textbf{First-author paper:}
+    \emph{\paperlink{https://arxiv.org/abs/2605.26186}{%
+        SetupX: Can LLM Agents Learn from Past Failures
+        in Functionality-Correct Code Repository Setup?}}.
+    Under review at \textbf{NeurIPS 2026}.
+    \item Developed an autonomous agent for complex GitHub
+    repository setup, integrating an external knowledge base
+    via RAG to help resolve dependency conflicts and
+    configuration errors.
+    \item Refined the agent--environment interaction loop
+    to improve automated repository setup success rates.
 \end{itemize}
 
-\vspace{5pt}
-\cvrole{SJTU Data Analysis Study Group}{Jun 2025 -- Oct 2025}
-       {Undergraduate Researcher}{LLM/Agent-as-Data-Analyst Survey}
+
+
+\vspace{3pt}
+
+\textbf{SJTU Data Analysis Study Group}
+\hfill Shanghai, China \\
+\emph{Undergraduate Researcher}
+\hfill \emph{Jun 2025 -- Oct 2025}
 \begin{itemize}
-  \item Authored the Video and 3D Models sections of \textit{LLM/Agent-as-Data-Analyst: A Survey}.
-  \item Curated the accompanying resource collection: \href{https://github.com/weAIDB/awesome-data-llm}{github.com/weAIDB/awesome-data-llm}.
+    \item \textbf{Project: LLM/Agent-as-Data-Analyst Survey}
+    \item Co-authored
+    \paperlink{https://arxiv.org/abs/2509.23988}{%
+        \emph{LLM/Agent-as-Data-Analyst: A Survey}}.
+    Under review at \textbf{IEEE TKDE}.
+    \item Authored the sections on \textbf{Video} and
+    \textbf{3D Models}, systematically reviewing
+    state-of-the-art methods for multimodal data analysis agents.
+    \item Curated and maintained the
+    \href{https://github.com/weAIDB/awesome-data-llm}{
+        \texttt{awesome-data-llm}
+    } repository to track the latest research.
 \end{itemize}
 
-\section{Technical Skills}
-\begin{itemize}[label={},leftmargin=0pt,itemsep=4pt]
-  \item \textbf{Programming:} Python, C++.
-  \item \textbf{Libraries \& Frameworks:} PyTorch, NumPy, pandas, Matplotlib, LangChain.
-  \item \textbf{Tools:} Docker, Git, \LaTeX.
-  \item \textbf{Machine Learning:} Model training and evaluation; LLM tool use; retrieval-augmented generation; multi-agent systems.
-\end{itemize}
+% --- SKILLS ---
+\resheading{SKILLS}
 
-\section{Selected Coursework}
-\begin{itemize}[label={},leftmargin=0pt,itemsep=4pt]
-  \item \textbf{Mathematics:} Mathematical Analysis, Linear Algebra, Numerical Analysis, Probability and Statistics, Discrete Mathematics.
-  \item \textbf{Computer Science \& AI:} Data Structures, Algorithms, C++, Machine Learning, Deep Learning, Reinforcement Learning, Robotics, Computer Architecture.
-\end{itemize}
+\textbf{Programming:} Python, C++ \\
+\textbf{Libraries \& Tools:} PyTorch, NumPy, pandas,
+Matplotlib, LangChain, Docker, Git, \LaTeX \\
+\textbf{Machine Learning:} Neural network architectures,
+model training, evaluation, and experimental design \\
+\textbf{LLMs \& Agents:} Tool use, retrieval-augmented generation,
+multi-agent systems, agent evaluation, and repository automation
+
+% --- RELEVANT COURSEWORK ---
+\resheading{RELEVANT COURSEWORK}
+
+\textbf{Mathematics:} Mathematical Analysis, Linear Algebra,
+Numerical Analysis, Probability and Statistics, Discrete Mathematics \\
+\textbf{Computer Science:} Data Structures,
+Algorithm Design and Analysis, C++ Programming,
+Machine Learning, Deep Learning, Reinforcement learning, Introduction to Intelligent Robotics, Computer Architecture
 
 \end{document}

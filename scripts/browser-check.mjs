@@ -2,11 +2,69 @@
 // npx playwright install chromium; node scripts/browser-check.mjs [base URL]
 import { chromium } from 'playwright';
 import assert from 'node:assert/strict';
-import { existsSync, mkdirSync } from 'node:fs';
+import { existsSync, mkdirSync, readFileSync } from 'node:fs';
+import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { once } from 'node:events';
-const output=fileURLToPath(new URL('../../homepage-previews/',import.meta.url));
+const output=process.env.CV_REVIEW_OUTPUT || fileURLToPath(new URL('../../homepage-previews/',import.meta.url));
 mkdirSync(output,{recursive:true});
+const cvHeadings=['Education', 'Publications & Preprints', 'Internship Experience', 'Research Experience', 'Skills', 'Relevant Coursework'];
+const cvDates=['Jun 2026 – Present', 'Apr 2026 – Jun 2026', 'Oct 2025 – Apr 2026', 'Jun 2025 – Oct 2025'];
+const normalizeCV=text=>text.replace(/\s+/g, ' ').trim();
+const pdfRaw=execFileSync('pdftotext', ['-raw', fileURLToPath(new URL('../cv/Zihang-Zhou-CV.pdf',import.meta.url)), '-'], {encoding:'utf8'});
+assert.equal(pdfRaw.split('\f').filter(page=>page.trim()).length, 2, 'Original CV has two natural pages');
+const pdfText=normalizeCV(pdfRaw.replace(/([A-Za-z])-\r?\n(?=[a-z])/g, '$1').replace(/L\s+A\s+TEX/g, 'LaTeX').replace(/\[\d+\]|•/g, ''));
+const sectionOffsets=cvHeadings.map(heading=>pdfText.indexOf(heading.toUpperCase()));
+assert(sectionOffsets.every((offset,index)=>offset>=0 && (index===0 || offset>sectionOffsets[index-1])), 'All original PDF sections exist in order');
+const cvTex=readFileSync(new URL('../cv/Zihang-Zhou-CV.tex',import.meta.url),'utf8');
+const cvLinks=[...cvTex.matchAll(/\\(?:href|paperlink)\{((?:https:\/\/|mailto:)[^}]+)\}/g)].map(match=>match[1]);
+async function checkCV(page) {
+  assert.deepEqual(await page.locator('.cv-section > h2').allTextContents(), cvHeadings);
+  assert.deepEqual(await page.locator('.cv-nav a').allTextContents(), cvHeadings);
+  assert.deepEqual(await page.locator('.timeline-date').allTextContents(), cvDates);
+  assert.deepEqual(await page.locator('.timeline .role').allTextContents(), ['Research Intern', 'Undergraduate Researcher', 'Undergraduate Researcher', 'Undergraduate Researcher']);
+  assert.deepEqual(await page.locator('.timeline article').evaluateAll(articles=>articles.map(article=>article.querySelectorAll('li').length)), [3,3,4,4]);
+  assert.equal(await page.locator('.cv-papers > li').count(), 4);
+  assert.equal(await page.locator('.authors, .education-metrics').count(), 0);
+  assert.deepEqual(await page.locator('.cv-intro p a, .cv-body a').evaluateAll(links=>links.map(link=>link.getAttribute('href'))), cvLinks, 'All original contact, paper and repository links match TeX');
+  const header=normalizeCV(await page.locator('.cv-intro h1').innerText()+' '+await page.locator('.cv-intro p').innerText()).replace(' • ', ' ');
+  assert.equal(header, pdfText.slice(0, sectionOffsets[0]).trim(), 'Original header has only name, email and GitHub');
+  const sections=await page.locator('.cv-section').all();
+  for (const [index,section] of sections.entries()) {
+    let text;
+    if (index===2 || index===3) {
+      const articles=[];
+      for (const article of await section.locator('article').all()) {
+        articles.push([
+          await article.locator('h3').innerText(),
+          await article.locator('h3 + p').innerText(),
+          await article.locator('.role').innerText(),
+          await article.locator('.timeline-date').innerText(),
+          ...(await article.locator('li').allInnerTexts())
+        ].join(' '));
+      }
+      text=articles.join(' ');
+    } else {
+      text=(await section.locator(':scope > :not(h2)').allInnerTexts()).join(' ');
+    }
+    const original=pdfText.slice(sectionOffsets[index]+cvHeadings[index].length, sectionOffsets[index+1] ?? pdfText.length).trim();
+    assert.equal(normalizeCV(text), original, `${cvHeadings[index]}: complete original PDF wording, punctuation and order retained`);
+  }
+  const grades=page.locator('.education-grades');
+  assert.equal(await grades.innerText(), 'GPA: 4.04 / 4.3 (Average Score: 92.7)');
+  assert(await grades.evaluate(element=>element.tagName==='P' && element.children.length===0 && parseFloat(getComputedStyle(element).fontSize)<=parseFloat(getComputedStyle(document.querySelector('.education-card > p')).fontSize) && Number(getComputedStyle(element).fontWeight)<=400), 'GPA stays an ordinary paragraph, not large or bold statistics');
+  const school=page.locator('.education-card > p').nth(1);
+  assert.equal(await school.locator('span').innerText(), 'School of Artificial Intelligence');
+  assert.equal(await school.locator('em').innerText(), 'Sep 2024 – Present');
+  const degree=page.locator('.education-card > p').nth(2);
+  assert.equal(await degree.innerText(), 'B.Eng. Candidate in Artificial Intelligence');
+  const schoolBox=await school.boundingBox(), degreeBox=await degree.boundingBox();
+  assert(schoolBox.y+schoolBox.height<=degreeBox.y, 'School and its date precede the degree without overlap');
+  if (page.viewportSize().width===1440) {
+    const label=await school.locator('span').boundingBox(), date=await school.locator('em').boundingBox();
+    assert(Math.abs(label.y-date.y)<2 && label.x+label.width<=date.x, 'Desktop date is on the right of the school line');
+  }
+}
 let server;
 if (!process.argv[2]) {
   process.env.PORT='0';
@@ -64,8 +122,13 @@ try {
         const response=await page.goto(base+route);
         assert.equal(response.status(),200);
         assert.equal(await page.locator('html').getAttribute('data-theme'),theme);
-        if (route === '/' || route === '/cv/') {
+        if (route === '/') {
           assert.deepEqual(await page.locator('.timeline-date').allTextContents(), ['JUN 2026 — PRESENT', 'APR 2026 — JUN 2026', 'OCT 2025 — APR 2026', 'JUN 2025 — OCT 2025']);
+        }
+        if (route === '/cv/') {
+          await checkCV(page);
+          await page.screenshot({path:`${output}/cv-${theme}-${width}.png`,fullPage:true,animations:'disabled'});
+          console.log(`PASS CV original PDF/DOM text, TeX links, education order and plain GPA: ${theme} ${width}px`);
         }
         assert(!/author[- ]provided|(?:supplied|reported) by (?:the author|Zihang Zhou)|not independently (?:established|confirmed)/i.test(await page.locator('body').innerText()));
         const layout=await page.evaluate(()=>({width:innerWidth,scroll:document.documentElement.scrollWidth}));

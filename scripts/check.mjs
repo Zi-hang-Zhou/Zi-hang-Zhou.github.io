@@ -39,8 +39,10 @@ const pdf=readFileSync(path.join(root,'cv/Zihang-Zhou-CV.pdf'));
 assert.equal(pdf.subarray(0,5).toString(),'%PDF-');
 assert(existsSync(path.join(root,'assets/avatar.png')));
 const cv=readFileSync(path.join(root,'cv/index.html'),'utf8');
-assert(cv.includes('<p class="education-grades">GPA: 4.04 / 4.3 · Average score: 92.7</p>'), 'Grades use plain prose with unchanged values');
+assert(cv.includes('<p class="education-grades">GPA: 4.04 / 4.3 (Average Score: 92.7)</p>'), 'Grades retain the original CV wording in a plain paragraph');
 assert(!cv.includes('education-metrics'), 'No oversized grade statistics');
+const tex=readFileSync(path.join(root,'cv/Zihang-Zhou-CV.tex'));
+assert.equal(createHash('sha256').update(tex).digest('hex'), '4cd411a3efece0a6e3119a0778a2f9a14d142a8f4586bda919a7eef0b50984dc', 'User original TeX with only the approved education-line swap is unchanged');
 const credits=readFileSync(path.join(root,'credits/index.html'),'utf8');
 assert.deepEqual([...credits.matchAll(/<h2>(.*?)<\/h2>/g)].map(m=>m[1]), ['Publication figures'], 'Credits contain only the figure section');
 const escapeHtml = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -69,7 +71,10 @@ const home=readFileSync(path.join(root,'index.html'),'utf8');
 assert(!/hero-subtitle|hero-description|Developer &amp; Researcher|LLM agents, tool learning, and evaluation\./.test(home), 'Home omits the removed subtitles');
 const experienceDates = ['JUN 2026 — PRESENT', 'APR 2026 — JUN 2026', 'OCT 2025 — APR 2026', 'JUN 2025 — OCT 2025'];
 for (const [name,html] of [['Home',home],['CV',cv]]) {
-  assert.deepEqual([...html.matchAll(/<div class="timeline-date">([^<]+)<\/div>/g)].map(m=>m[1]), experienceDates, `${name}: both ends of experience dates include their year`);
+  const dates=[...html.matchAll(/<div class="timeline-date">([^<]+)<\/div>/g)].map(m=>m[1]);
+  if (name === 'CV') assert.deepEqual(dates, ['Jun 2026 &#8211; Present', 'Apr 2026 &#8211; Jun 2026', 'Oct 2025 &#8211; Apr 2026', 'Jun 2025 &#8211; Oct 2025'], 'CV retains original date casing and en dashes');
+  assert.deepEqual(dates.map(date=>date.replaceAll('&#8211;', '—').toUpperCase()), experienceDates, `${name}: both ends of experience dates include their year and agree semantically`);
 }
+console.log('PASS: original CV TeX hash, plain GPA paragraph, and Home/CV date agreement.');
 console.log('PASS: minimal publication heading, no filters or author-provided disclaimers, concise credits, preserved paper sources/licenses and MIT notice.');
 console.log(`PASS: ${pages.length} pages, ${refs} local references, four paper figures/authorship records, PDF, no placeholders or removed experience.`);
