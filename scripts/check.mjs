@@ -29,6 +29,17 @@ for (const page of pages) {
 }
 const papers=JSON.parse(readFileSync(path.join(root,'data/publications.json'),'utf8'));
 assert.equal(papers.length,4);
+for (const [id, status, kind] of [
+  ['setupx', 'Under review · ICLR 2027', 'preprint'],
+  ['workspace-bench', 'NeurIPS 2026 · Poster', 'accepted']
+]) {
+  const paper=papers.find(p=>p.id===id);
+  assert.equal(paper.status,status,`${id}: current publication status`);
+  assert.equal(paper.kind,kind,`${id}: acceptance distinction`);
+  for (const page of ['index.html','publications/index.html']) {
+    assert(readFileSync(path.join(root,page),'utf8').includes(status),`${page}: ${id} status`);
+  }
+}
 for (const p of papers) {
   assert(p.authors.includes('Zihang Zhou'));
   assert(p.statusSource && p.source && p.license);
@@ -42,7 +53,10 @@ const cv=readFileSync(path.join(root,'cv/index.html'),'utf8');
 assert(cv.includes('<p class="education-grades">GPA: 4.04 / 4.3 (Average Score: 92.7)</p>'), 'Grades retain the original CV wording in a plain paragraph');
 assert(!cv.includes('education-metrics'), 'No oversized grade statistics');
 const tex=readFileSync(path.join(root,'cv/Zihang-Zhou-CV.tex'));
-assert.equal(createHash('sha256').update(tex).digest('hex'), '4cd411a3efece0a6e3119a0778a2f9a14d142a8f4586bda919a7eef0b50984dc', 'User original TeX with only the approved education-line swap is unchanged');
+assert.equal(createHash('sha256').update(tex).digest('hex'), '85ac4f766f65f66bcf4d48455c3e63d345f8ac7510ef6c16021f22cb88196ae8', 'CV source integrity');
+assert.equal((cv.match(/Under review at <strong>ICLR 2027<\/strong>/g)||[]).length,2,'Both CV SetupX references retain under-review status');
+assert(cv.includes('<strong>NeurIPS 2026 (Poster)</strong>'),'CV Workspace-Bench acceptance');
+assert(!cv.includes('Under review at <strong>NeurIPS 2026</strong>'),'No obsolete CV submission status');
 const credits=readFileSync(path.join(root,'credits/index.html'),'utf8');
 assert.deepEqual([...credits.matchAll(/<h2>(.*?)<\/h2>/g)].map(m=>m[1]), ['Publication figures'], 'Credits contain only the figure section');
 const escapeHtml = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));

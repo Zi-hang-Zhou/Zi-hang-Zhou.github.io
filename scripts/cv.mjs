@@ -33,8 +33,8 @@ export function renderCV(download) {
       <h2>Publications &amp; Preprints</h2>
       <ol class="cv-papers">
         <li><em><a href="https://arxiv.org/abs/2606.21013">Agentic Time Machine as an Infrastructure for Future-Event Forecasting</a></em>.<p><strong>EMNLP 2026 Main Conference (Oral)</strong>.</p></li>
-        <li><em><a href="https://arxiv.org/abs/2605.26186">SetupX: Can LLM Agents Learn from Past Failures in Functionality-Correct Code Repository Setup?</a></em>.<p><strong>First Author</strong>. Under review at <strong>NeurIPS 2026</strong>.</p></li>
-        <li><em><a href="https://arxiv.org/abs/2605.03596">Workspace-Bench 1.0: Benchmarking AI Agents on Workspace Tasks with Large-Scale File Dependencies</a></em>.<p>Under review at <strong>NeurIPS 2026</strong>.</p></li>
+        <li><em><a href="https://arxiv.org/abs/2605.26186">SetupX: Can LLM Agents Learn from Past Failures in Functionality-Correct Code Repository Setup?</a></em>.<p><strong>First Author</strong>. Under review at <strong>ICLR 2027</strong>.</p></li>
+        <li><em><a href="https://arxiv.org/abs/2605.03596">Workspace-Bench 1.0: Benchmarking AI Agents on Workspace Tasks with Large-Scale File Dependencies</a></em>.<p><strong>NeurIPS 2026 (Poster)</strong>.</p></li>
         <li><em><a href="https://arxiv.org/abs/2509.23988">LLM/Agent-as-Data-Analyst: A Survey</a></em>.<p>Under review at <strong>IEEE TKDE</strong>.</p></li>
       </ol>
     </section>
@@ -66,7 +66,7 @@ export function renderCV(download) {
           <h3>SJTU Data Analysis Study Group</h3><p>Shanghai, China</p><p class="role"><em>Undergraduate Researcher</em></p>
           <ul class="clean-list">
             <li><strong>Project: SetupX &#8211; Autonomous Repository Setup</strong></li>
-            <li><strong>First-author paper:</strong> <em><a href="https://arxiv.org/abs/2605.26186">SetupX: Can LLM Agents Learn from Past Failures in Functionality-Correct Code Repository Setup?</a></em>. Under review at <strong>NeurIPS 2026</strong>.</li>
+            <li><strong>First-author paper:</strong> <em><a href="https://arxiv.org/abs/2605.26186">SetupX: Can LLM Agents Learn from Past Failures in Functionality-Correct Code Repository Setup?</a></em>. Under review at <strong>ICLR 2027</strong>.</li>
             <li>Developed an autonomous agent for complex GitHub repository setup, integrating an external knowledge base via RAG to help resolve dependency conflicts and configuration errors.</li>
             <li>Refined the agent&#8211;environment interaction loop to improve automated repository setup success rates.</li>
           </ul>
