@@ -15,6 +15,37 @@ themeButton.addEventListener('click', () => {
   updateThemeLabel();
 });
 const announce = message => { document.querySelector('#live-status').textContent = message; };
+const contactDialog = document.querySelector('#contact-dialog');
+if (contactDialog && typeof contactDialog.showModal === 'function') {
+  const emailField = contactDialog.querySelector('#contact-email');
+  const copyButton = contactDialog.querySelector('[data-copy-email]');
+  const status = contactDialog.querySelector('.contact-status');
+  document.querySelectorAll('[data-contact-open]').forEach(link => {
+    link.addEventListener('click', event => {
+      if (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
+      event.preventDefault();
+      copyButton.textContent = 'Copy email';
+      status.textContent = '';
+      contactDialog.showModal();
+    });
+  });
+  copyButton.addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText(emailField.value);
+      copyButton.textContent = 'Copied';
+      status.textContent = 'Email address copied.';
+    } catch {
+      emailField.focus();
+      emailField.select();
+      status.textContent = 'Email selected. Press Ctrl+C or ⌘C to copy.';
+    }
+  });
+  contactDialog.querySelector('[data-contact-close]').addEventListener('click', () => contactDialog.close());
+  contactDialog.addEventListener('click', event => {
+    const bounds = contactDialog.getBoundingClientRect();
+    if (event.target === contactDialog && (event.clientX < bounds.left || event.clientX > bounds.right || event.clientY < bounds.top || event.clientY > bounds.bottom)) contactDialog.close();
+  });
+}
 document.querySelectorAll('.cite-button').forEach(button => {
   button.addEventListener('click', () => {
     const panel = document.getElementById(button.dataset.cite);

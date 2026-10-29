@@ -107,11 +107,47 @@ async function checkPalette(page, theme) {
 }
 let browser;
 try {
-  browser=await chromium.launch({headless:true});
+  browser=await chromium.launch({headless:true,...(process.env.BROWSER_CHANNEL ? {channel:process.env.BROWSER_CHANNEL} : {})});
   const context=await browser.newContext({viewport:{width:1440,height:1000},colorScheme:'light'});
   const page=await context.newPage();
   const errors=[];page.on('pageerror',e=>errors.push(e.message));
   await page.goto(base+'/');
+  for (const theme of ['light','dark']) {
+    await page.evaluate(value => localStorage.setItem('zihang-theme',value),theme);
+    await page.reload();
+    for (const width of [1440,320]) {
+      await page.setViewportSize({width,height:900});
+      const opener=page.locator('[data-contact-open]');
+      const contact=page.getByRole('dialog',{name:'Get in touch',exact:true});
+      await opener.click();
+      assert(await contact.isVisible());
+      assert.equal(await contact.locator('#contact-email').inputValue(),'zzh2024@sjtu.edu.cn');
+      assert.equal(await contact.getByRole('link',{name:'Open email app ↗'}).getAttribute('href'),'mailto:zzh2024@sjtu.edu.cn');
+      await page.evaluate(()=>{Object.defineProperty(navigator,'clipboard',{configurable:true,value:{writeText:async value=>{window.copiedEmail=value;}}});});
+      await contact.getByRole('button',{name:'Copy email',exact:true}).click();
+      await page.getByRole('button',{name:'Copied',exact:true}).waitFor();
+      assert.equal(await page.evaluate(()=>window.copiedEmail),'zzh2024@sjtu.edu.cn');
+      assert.equal(await contact.locator('[role=status]').innerText(),'Email address copied.');
+      const box=await contact.boundingBox();
+      assert(box.x>=0 && box.x+box.width<=width && await contact.evaluate(el=>el.scrollWidth<=el.clientWidth),'Contact dialog fits viewport');
+      await page.screenshot({path:`${output}/contact-${theme}-${width}.png`,animations:'disabled'});
+      await page.keyboard.press('Escape');
+      assert(!(await contact.isVisible()));
+      assert(await opener.evaluate(el=>el===document.activeElement),'Escape restores focus to contact link');
+      await opener.click();
+      assert.equal(await contact.locator('[role=status]').innerText(),'');
+      await page.evaluate(()=>{navigator.clipboard.writeText=async()=>{throw new Error('Permission denied');};});
+      await contact.getByRole('button',{name:'Copy email',exact:true}).click();
+      await page.waitForFunction(()=>document.querySelector('.contact-status').textContent.includes('Email selected.'));
+      assert.deepEqual(await contact.locator('#contact-email').evaluate(el=>[el.selectionStart,el.selectionEnd]),[0,19]);
+      await contact.getByRole('button',{name:'Close contact details'}).click();
+      assert(!(await contact.isVisible()));
+      await opener.click();
+      await page.mouse.click(2,2);
+      assert(!(await contact.isVisible()),'Clicking outside contact dialog closes it');
+      console.log(`PASS contact email, copy success/denial, mailto, Escape/focus, close button, backdrop: ${theme} ${width}px`);
+    }
+  }
   for (const theme of ['dark', 'light']) {
     await page.evaluate(value => localStorage.setItem('zihang-theme', value), theme);
     await page.reload();
@@ -164,12 +200,12 @@ try {
   await page.locator('#setupx .cite-button').click();
   assert(await page.locator('#cite-setupx').isVisible());
   await page.locator('#setupx .figure-link').click();
-  assert(await page.locator('dialog').evaluate(el=>el.open));
+  assert(await page.locator('#figure-dialog').evaluate(el=>el.open));
   await page.keyboard.press('Escape');
-  await page.locator('dialog').waitFor({state:'hidden'});
+  await page.locator('#figure-dialog').waitFor({state:'hidden'});
   await page.locator('#setupx .figure-link').click();
   await page.getByRole('button',{name:'Close figure',exact:true}).click();
-  assert(!(await page.locator('dialog').evaluate(el=>el.open)));
+  assert(!(await page.locator('#figure-dialog').evaluate(el=>el.open)));
   const pdf=await context.request.get(base+'/cv/Zihang-Zhou-CV.pdf');
   assert.equal(pdf.status(),200);assert((await pdf.body()).subarray(0,5).toString()==='%PDF-');
   const notfound=await context.request.get(base+'/nonexistent-page-for-check/');assert.equal(notfound.status(),404);

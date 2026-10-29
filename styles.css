@@ -196,6 +196,13 @@ dialog::backdrop { background:rgba(0,0,0,.65); }
 dialog img { max-height:70vh; object-fit:contain; margin:auto; background:white; }
 dialog p { text-align:center; margin:16px 0 0; color:var(--muted); font-size:.8rem; }
 .dialog-close { position:absolute; right:12px; top:8px; border:0; background:none; color:var(--ink); font-size:28px; }
+.contact-dialog { width:min(480px,92vw); padding:44px 24px 24px; }
+.contact-dialog h2 { font-size:1.8rem; margin-bottom:24px; }
+.contact-dialog label { display:block; color:var(--muted); font-size:.85rem; margin-bottom:8px; }
+.contact-dialog input { width:100%; min-width:0; padding:12px; border:1px solid var(--line); border-radius:8px; background:var(--bg); color:var(--ink); font:inherit; }
+.contact-actions { display:flex; flex-wrap:wrap; gap:12px; margin-top:20px; }
+.contact-actions .button { border:1px solid var(--line); font-size:.9rem; }
+.contact-dialog .contact-status { text-align:left; min-height:1.6em; margin-top:16px; overflow-wrap:anywhere; }
 .sr-only { position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; }
 @media(max-width:900px) {
   .project-row { gap:28px; }
