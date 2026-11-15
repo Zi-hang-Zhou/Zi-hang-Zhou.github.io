@@ -28,8 +28,9 @@ for (const page of pages) {
   }
 }
 const papers=JSON.parse(readFileSync(path.join(root,'data/publications.json'),'utf8'));
-assert.equal(papers.length,4);
+assert.equal(papers.length,5);
 for (const [id, status, kind] of [
+  ['live-skill-evolution', 'Under review · ICLR 2027', 'preprint'],
   ['setupx', 'Under review · ICLR 2027', 'preprint'],
   ['workspace-bench', 'NeurIPS 2026 · Poster', 'accepted']
 ]) {
@@ -42,7 +43,9 @@ for (const [id, status, kind] of [
 }
 for (const p of papers) {
   assert(p.authors.includes('Zihang Zhou'));
-  assert(p.statusSource && p.source && p.license);
+  assert(p.statusSource);
+  if (!p.image) { assert(p.url && p.pdf); continue; }
+  assert(p.source && p.license);
   const png=readFileSync(path.join(root,'assets',p.image));
   assert.equal(png.subarray(1,4).toString(),'PNG',p.image);
 }
@@ -53,16 +56,17 @@ const cv=readFileSync(path.join(root,'cv/index.html'),'utf8');
 assert(cv.includes('<p class="education-grades">GPA: 4.04 / 4.3 (Average Score: 92.7)</p>'), 'Grades retain the original CV wording in a plain paragraph');
 assert(!cv.includes('education-metrics'), 'No oversized grade statistics');
 const tex=readFileSync(path.join(root,'cv/Zihang-Zhou-CV.tex'));
-assert.equal(createHash('sha256').update(tex).digest('hex'), '85ac4f766f65f66bcf4d48455c3e63d345f8ac7510ef6c16021f22cb88196ae8', 'CV source integrity');
-assert.equal((cv.match(/Under review at <strong>ICLR 2027<\/strong>/g)||[]).length,2,'Both CV SetupX references retain under-review status');
+assert(tex.toString().includes('Live Skill Evolution for Forecasting Agents with Delayed Outcome Feedback'), 'New paper in CV source');
+assert.equal((cv.match(/Under review at <strong>ICLR 2027<\/strong>/g)||[]).length,3,'CV SetupX and Live Skill Evolution retain under-review status');
 assert(cv.includes('<strong>NeurIPS 2026 (Poster)</strong>'),'CV Workspace-Bench acceptance');
 assert(!cv.includes('Under review at <strong>NeurIPS 2026</strong>'),'No obsolete CV submission status');
 const credits=readFileSync(path.join(root,'credits/index.html'),'utf8');
 assert.deepEqual([...credits.matchAll(/<h2>(.*?)<\/h2>/g)].map(m=>m[1]), ['Publication figures'], 'Credits contain only the figure section');
 const escapeHtml = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const figureCredits = [...credits.matchAll(/<article>([\s\S]*?)<\/article>/g)].map(m=>m[1]);
-assert.equal(figureCredits.length, papers.length, 'One figure credit per paper');
-for (const [i,p] of papers.entries()) {
+const illustratedPapers = papers.filter(p=>p.image);
+assert.equal(figureCredits.length, illustratedPapers.length, 'One credit per reused figure');
+for (const [i,p] of illustratedPapers.entries()) {
   const credit=figureCredits[i];
   assert(credit.includes(`<h3>${escapeHtml(p.short)}</h3>`));
   assert(credit.includes(`${p.authors.map(escapeHtml).join(', ')}. <em>${escapeHtml(p.title)}</em>, ${p.year}.`), `${p.id}: ordered authors and title retained`);
@@ -78,9 +82,11 @@ const license=readFileSync(path.join(root,'credits/LICENSE.txt'));
 // Keep the complete MIT license text intact.
 assert.equal(createHash('sha256').update(license).digest('hex'), '5dc0eb31986b4b2bba017d22df6688c20ae002a61b4d75fd4c4e100f60c1ed68', 'Complete MIT license is unchanged');
 const publications=readFileSync(path.join(root,'publications/index.html'),'utf8');
+assert(!publications.includes('undefined'), 'Optional arXiv and figure fields do not leak into links or citations');
+assert(publications.includes('https://openreview.net/forum?id=8MIM9QGcap'), 'New paper links to its OpenReview record');
 assert.equal(publications.match(/<section class="page-intro container">([\s\S]*?)<\/section>/)?.[1], '<h1>Publications</h1>', 'Publication introduction contains only its heading');
 assert(!/data-filter=|class="filters"|publication-note|sources-note/.test(publications), 'No publication filters or explanatory notes');
-assert.equal((publications.match(/class="paper-card"/g)||[]).length, 4, 'All four papers remain listed');
+assert.equal((publications.match(/class="paper-card(?: |")/g)||[]).length, 5, 'All five papers remain listed');
 const home=readFileSync(path.join(root,'index.html'),'utf8');
 assert(!/hero-subtitle|hero-description|Developer &amp; Researcher|LLM agents, tool learning, and evaluation\./.test(home), 'Home omits the removed subtitles');
 const experienceDates = ['JUN 2026 — PRESENT', 'APR 2026 — JUN 2026', 'OCT 2025 — APR 2026', 'JUN 2025 — OCT 2025'];
@@ -89,6 +95,6 @@ for (const [name,html] of [['Home',home],['CV',cv]]) {
   if (name === 'CV') assert.deepEqual(dates, ['Jun 2026 &#8211; Present', 'Apr 2026 &#8211; Jun 2026', 'Oct 2025 &#8211; Apr 2026', 'Jun 2025 &#8211; Oct 2025'], 'CV retains original date casing and en dashes');
   assert.deepEqual(dates.map(date=>date.replaceAll('&#8211;', '—').toUpperCase()), experienceDates, `${name}: both ends of experience dates include their year and agree semantically`);
 }
-console.log('PASS: original CV TeX hash, plain GPA paragraph, and Home/CV date agreement.');
+console.log('PASS: updated CV TeX publication, plain GPA paragraph, and Home/CV date agreement.');
 console.log('PASS: minimal publication heading, no filters or author-provided disclaimers, concise credits, preserved paper sources/licenses and MIT notice.');
-console.log(`PASS: ${pages.length} pages, ${refs} local references, four paper figures/authorship records, PDF, no placeholders or removed experience.`);
+console.log(`PASS: ${pages.length} pages, ${refs} local references, five papers and four credited figures, PDF, no placeholders or removed experience.`);

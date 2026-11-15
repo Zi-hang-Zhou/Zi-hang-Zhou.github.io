@@ -4,6 +4,7 @@ export function portfolio(papers, timeline) {
   const featured = ['setupx', 'time-machine', 'workspace-bench', 'data-analyst']
     .map(id => papers.find(p => p.id === id));
   if (featured.some(p => !p)) throw new Error('Missing featured publication');
+  const latest = papers.find(p => p.id === 'live-skill-evolution');
   return `
   <section class="hero" aria-labelledby="intro-title">
     <div class="hero-content">
@@ -30,6 +31,11 @@ export function portfolio(papers, timeline) {
           </div>
         </article>`).join('')}
       </div>
+      <article class="research-update project-info" id="${latest.id}">
+        <div class="project-meta"><span class="project-badge">${esc(latest.status)}</span></div>
+        <h3>${esc(latest.short)}</h3><p>${esc(latest.description)}</p>
+        <div class="project-links"><a class="arrow-link" href="${esc(latest.url)}">Read paper <span aria-hidden="true">→</span></a><a class="detail-link" href="./publications/#${latest.id}">Authors &amp; details</a></div>
+      </article>
       <div class="small-projects">
         <a class="project-item" href="https://github.com/Zi-hang-Zhou/Speechmaster"><span class="project-number">05</span><div><h3>SpeechMaster</h3><p>Budget-aware speech recognition with self-supervised representations.</p></div></a>
         <a class="project-item" href="https://github.com/Zi-hang-Zhou/NLP-project-work"><span class="project-number">06</span><div><h3>KV Cache Compression</h3><p>Quality, memory, and latency trade-offs on Pythia-70M.</p></div></a>

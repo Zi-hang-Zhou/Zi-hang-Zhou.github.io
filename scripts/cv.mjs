@@ -32,6 +32,7 @@ export function renderCV(download) {
     <section class="cv-section" id="papers">
       <h2>Publications &amp; Preprints</h2>
       <ol class="cv-papers">
+        <li><em><a href="https://openreview.net/forum?id=8MIM9QGcap">Live Skill Evolution for Forecasting Agents with Delayed Outcome Feedback</a></em>.<p>Under review at <strong>ICLR 2027</strong>.</p></li>
         <li><em><a href="https://arxiv.org/abs/2606.21013">Agentic Time Machine as an Infrastructure for Future-Event Forecasting</a></em>.<p><strong>EMNLP 2026 Main Conference (Oral)</strong>.</p></li>
         <li><em><a href="https://arxiv.org/abs/2605.26186">SetupX: Can LLM Agents Learn from Past Failures in Functionality-Correct Code Repository Setup?</a></em>.<p><strong>First Author</strong>. Under review at <strong>ICLR 2027</strong>.</p></li>
         <li><em><a href="https://arxiv.org/abs/2605.03596">Workspace-Bench 1.0: Benchmarking AI Agents on Workspace Tasks with Large-Scale File Dependencies</a></em>.<p><strong>NeurIPS 2026 (Poster)</strong>.</p></li>

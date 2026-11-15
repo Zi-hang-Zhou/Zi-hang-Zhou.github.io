@@ -24,7 +24,7 @@ async function checkCV(page) {
   assert.deepEqual(await page.locator('.timeline-date').allTextContents(), cvDates);
   assert.deepEqual(await page.locator('.timeline .role').allTextContents(), ['Research Intern', 'Undergraduate Researcher', 'Undergraduate Researcher', 'Undergraduate Researcher']);
   assert.deepEqual(await page.locator('.timeline article').evaluateAll(articles=>articles.map(article=>article.querySelectorAll('li').length)), [3,3,4,4]);
-  assert.equal(await page.locator('.cv-papers > li').count(), 4);
+  assert.equal(await page.locator('.cv-papers > li').count(), 5);
   assert.equal(await page.locator('.authors, .education-metrics').count(), 0);
   assert.deepEqual(await page.locator('.cv-intro p a, .cv-body a').evaluateAll(links=>links.map(link=>link.getAttribute('href'))), cvLinks, 'All original contact, paper and repository links match TeX');
   const header=normalizeCV(await page.locator('.cv-intro h1').innerText()+' '+await page.locator('.cv-intro p').innerText()).replace(' • ', ' ');
@@ -192,7 +192,7 @@ try {
   await checkPalette(page,'dark');
   await page.screenshot({path:output+'/mobile-dark.png',animations:'disabled'});
   await page.goto(base+'/publications/');
-  assert.equal(await page.locator('.paper-card:visible').count(),4);
+  assert.equal(await page.locator('.paper-card:visible').count(),5);
   assert.equal(await page.locator('.page-intro').innerText(),'Publications');
   assert.equal(await page.locator('[data-filter], .publication-note, .sources-note').count(),0);
   await page.locator('#setupx summary').click();
@@ -237,7 +237,7 @@ try {
   assert.deepEqual(errors,[]);
   console.log('PASS minimal headings, removed subtitles/disclaimers, authors, citations, lightbox/Escape, theme persistence, PDF, 404, zero JavaScript errors');
   await context.close();
-  const nojs=await browser.newContext({javaScriptEnabled:false});const basic=await nojs.newPage();await basic.goto(base+'/publications/');assert.equal(await basic.locator('.paper-card').count(),4);await basic.goto(base+'/');assert.equal(await basic.locator('.project-row:visible').count(),4);console.log('PASS content readable without JavaScript');await nojs.close();
+  const nojs=await browser.newContext({javaScriptEnabled:false});const basic=await nojs.newPage();await basic.goto(base+'/publications/');assert.equal(await basic.locator('.paper-card').count(),5);await basic.goto(base+'/');assert.equal(await basic.locator('.project-row:visible').count(),4);console.log('PASS content readable without JavaScript');await nojs.close();
   const reduced=await browser.newContext({reducedMotion:'reduce'});const still=await reduced.newPage();await still.goto(base+'/');assert.equal(await still.locator('.reveal-ready').count(),0);assert.equal(await still.locator('.gradient-orb').first().evaluate(el=>getComputedStyle(el).animationName),'none');console.log('PASS reduced motion');await reduced.close();
   console.log(`Screenshots: ${output}`);
 } finally {await browser?.close(); if(server) await new Promise(resolve=>server.close(resolve));}

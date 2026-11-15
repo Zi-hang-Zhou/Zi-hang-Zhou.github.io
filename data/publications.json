@@ -1,5 +1,32 @@
 [
   {
+    "id": "live-skill-evolution",
+    "short": "Live Skill Evolution (Future-SE)",
+    "title": "Live Skill Evolution for Forecasting Agents with Delayed Outcome Feedback",
+    "year": 2026,
+    "url": "https://openreview.net/forum?id=8MIM9QGcap",
+    "pdf": "https://openreview.net/pdf?id=8MIM9QGcap",
+    "authors": [
+      "Bingyang Zheng",
+      "Jingyi Chai",
+      "Kemeng Zhang",
+      "Tianchen Wang",
+      "Zihang Zhou",
+      "Hao Lu",
+      "Xiangrui Liu",
+      "Siheng Chen"
+    ],
+    "status": "Under review · ICLR 2027",
+    "kind": "preprint",
+    "statusSource": "OpenReview submission screenshot, November 15, 2026; ICLR 2027 Conference Submission, not an acceptance.",
+    "description": "Future-SE evolves a reusable natural-language skill library for forecasting agents using delayed outcome feedback, while keeping the base model and agent harness fixed.",
+    "tags": [
+      "Forecasting",
+      "Skill evolution",
+      "Continual learning"
+    ]
+  },
+  {
     "id": "time-machine",
     "short": "Agentic Time Machine",
     "title": "Agentic Time Machine as an Infrastructure for Future-Event Forecasting",

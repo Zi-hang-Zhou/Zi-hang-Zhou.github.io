@@ -130,6 +130,8 @@ nav a:hover,nav a[aria-current=page] { color:var(--accent); }
 .text-link { display:inline-flex; gap:8px; align-items:center; font-size:.88rem; }
 .section-tight { padding-bottom:96px; }
 .paper-card { display:grid; grid-template-columns:34% 1fr; gap:48px; padding:44px 0; border-bottom:1px solid var(--line); align-items:center; }
+.paper-card-text { grid-template-columns:1fr; }
+.research-update { margin-bottom:64px; padding-top:32px; padding-bottom:32px; border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
 .paper-visual,.paper-content { min-width:0; }
 .paper-visual .figure-link { display:block; position:relative; padding:16px; background:white; border-radius:18px; }
 .paper-visual img { height:230px; width:100%; object-fit:contain; }
