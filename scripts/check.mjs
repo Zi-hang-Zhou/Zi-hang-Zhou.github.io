@@ -71,7 +71,8 @@ for (const [i,p] of illustratedPapers.entries()) {
   assert(credit.includes(`<h3>${escapeHtml(p.short)}</h3>`));
   assert(credit.includes(`${p.authors.map(escapeHtml).join(', ')}. <em>${escapeHtml(p.title)}</em>, ${p.year}.`), `${p.id}: ordered authors and title retained`);
   assert(credit.includes(escapeHtml(p.figure)), `${p.id}: figure credit retained`);
-  assert(credit.includes(`href="https://arxiv.org/html/${p.version}"`), `${p.id}: versioned paper link retained`);
+  const paperSource = p.version ? `https://arxiv.org/html/${p.version}` : p.url;
+  assert(credit.includes(`href="${escapeHtml(paperSource)}"`), `${p.id}: paper link retained`);
   assert(credit.includes(`href="${escapeHtml(p.source)}"`), `${p.id}: original image link retained`);
   assert(credit.includes(`Rights: ${escapeHtml(p.licenseLabel || p.license)}`), `${p.id}: actual license retained`);
   assert(credit.includes('Used without substantive modification; scaled to fit the page.'), `${p.id}: modification notice retained`);
@@ -97,4 +98,4 @@ for (const [name,html] of [['Home',home],['CV',cv]]) {
 }
 console.log('PASS: updated CV TeX publication, plain GPA paragraph, and Home/CV date agreement.');
 console.log('PASS: minimal publication heading, no filters or author-provided disclaimers, concise credits, preserved paper sources/licenses and MIT notice.');
-console.log(`PASS: ${pages.length} pages, ${refs} local references, five papers and four credited figures, PDF, no placeholders or removed experience.`);
+console.log(`PASS: ${pages.length} pages, ${refs} local references, five papers and ${illustratedPapers.length} credited figures, PDF, no placeholders or removed experience.`);

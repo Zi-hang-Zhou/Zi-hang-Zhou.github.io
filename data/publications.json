@@ -80,6 +80,10 @@
     "kind": "preprint",
     "statusSource": "OpenReview submission screenshot, November 15, 2026; ICLR 2027 Conference Submission, not an acceptance.",
     "description": "A framework for forecasting agents to refine reusable skills from delayed outcome feedback and apply them to future predictions.",
+    "image": "live-skill-overview.png",
+    "figure": "Overview · Forecasting capabilities and agent architecture",
+    "source": "https://zi-hang-zhou.github.io/assets/live-skill-overview.png",
+    "license": "CC BY 4.0",
     "tags": [
       "Forecasting",
       "Skill evolution",

@@ -31,10 +31,16 @@ export function portfolio(papers, timeline) {
           </div>
         </article>`).join('')}
       </div>
-      <article class="research-update project-info" id="${latest.id}">
+      <article class="research-update project-row" id="${latest.id}">
+        <figure class="project-visual">
+          <a class="figure-link" href="./assets/${esc(latest.image)}" data-caption="${esc(latest.figure)}" aria-label="Enlarge ${esc(latest.short)} figure"><img src="./assets/${esc(latest.image)}" alt="${esc(latest.figure)}" loading="lazy" width="1106" height="662"></a>
+          <figcaption>${esc(latest.figure)} · <a href="${esc(latest.url)}">Source</a></figcaption>
+        </figure>
+        <div class="project-info">
         <div class="project-meta"><span class="project-badge">${esc(latest.status)}</span></div>
         <h3>${esc(latest.short)}</h3><p>${esc(latest.description)}</p>
         <div class="project-links"><a class="arrow-link" href="${esc(latest.url)}">Read paper <span aria-hidden="true">→</span></a><a class="detail-link" href="./publications/#${latest.id}">Authors &amp; details</a></div>
+        </div>
       </article>
       <div class="small-projects">
         <a class="project-item" href="https://github.com/Zi-hang-Zhou/Speechmaster"><span class="project-number">05</span><div><h3>SpeechMaster</h3><p>Budget-aware speech recognition with self-supervised representations.</p></div></a>

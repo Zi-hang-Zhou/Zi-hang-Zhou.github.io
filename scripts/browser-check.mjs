@@ -213,7 +213,7 @@ try {
   await page.goto(base+'/');
   await page.getByRole('button',{name:'Switch to light theme',exact:true}).click();
   assert.equal(await page.locator('.profile-card').count(),0);
-  assert.equal(await page.locator('.project-row').count(),4);
+  assert.equal(await page.locator('.project-row').count(),5);
   assert.equal(await page.locator('.hero h1').innerText(),"Hi, I'm\nZihang Zhou");
   assert.equal(await page.locator('.hero-subtitle, .hero-description').count(),0);
   const rows=await page.locator('.project-row').evaluateAll(elements=>elements.map(el=>({image:getComputedStyle(el.querySelector('.project-visual')).order,text:getComputedStyle(el.querySelector('.project-info')).order})));
@@ -237,7 +237,7 @@ try {
   assert.deepEqual(errors,[]);
   console.log('PASS minimal headings, removed subtitles/disclaimers, authors, citations, lightbox/Escape, theme persistence, PDF, 404, zero JavaScript errors');
   await context.close();
-  const nojs=await browser.newContext({javaScriptEnabled:false});const basic=await nojs.newPage();await basic.goto(base+'/publications/');assert.equal(await basic.locator('.paper-card').count(),5);await basic.goto(base+'/');assert.equal(await basic.locator('.project-row:visible').count(),4);console.log('PASS content readable without JavaScript');await nojs.close();
+  const nojs=await browser.newContext({javaScriptEnabled:false});const basic=await nojs.newPage();await basic.goto(base+'/publications/');assert.equal(await basic.locator('.paper-card').count(),5);await basic.goto(base+'/');assert.equal(await basic.locator('.project-row:visible').count(),5);console.log('PASS content readable without JavaScript');await nojs.close();
   const reduced=await browser.newContext({reducedMotion:'reduce'});const still=await reduced.newPage();await still.goto(base+'/');assert.equal(await still.locator('.reveal-ready').count(),0);assert.equal(await still.locator('.gradient-orb').first().evaluate(el=>getComputedStyle(el).animationName),'none');console.log('PASS reduced motion');await reduced.close();
   console.log(`Screenshots: ${output}`);
 } finally {await browser?.close(); if(server) await new Promise(resolve=>server.close(resolve));}
