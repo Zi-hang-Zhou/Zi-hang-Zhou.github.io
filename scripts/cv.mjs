@@ -23,7 +23,7 @@ export function renderCV(download) {
         <p><em>B.Eng. Candidate in Artificial Intelligence</em></p>
         <ul class="clean-list">
           <li><p class="education-grades">GPA: 4.04 / 4.3 (Average Score: 92.7)</p></li>
-          <li><strong>Honors:</strong> National Scholarship (Top <strong>0.5%</strong>, Oct 2025);<br> Zhiyuan Honorary Scholarship.</li>
+          <li><strong>Honors:</strong> National Scholarship (Top <strong>0.5%</strong>, Oct 2025);<br> Zhiyuan Honorary Scholarship;<br> Shanghai Jiao Tong University–Suzhou Industrial Park Scholarship.</li>
           <li><strong>Early Admission:</strong> Admitted one year early (Grade 11) via the National College Entrance Exam (Gaokao); ranked in the top <strong>0.05%</strong> in Jiangsu Province.</li>
         </ul>
       </div>
@@ -32,9 +32,9 @@ export function renderCV(download) {
     <section class="cv-section" id="papers">
       <h2>Publications &amp; Preprints</h2>
       <ol class="cv-papers">
-        <li><em><a href="https://openreview.net/forum?id=8MIM9QGcap">Live Skill Evolution for Forecasting Agents with Delayed Outcome Feedback</a></em>.<p>Under review at <strong>ICLR 2027</strong>.</p></li>
-        <li><em><a href="https://arxiv.org/abs/2606.21013">Agentic Time Machine as an Infrastructure for Future-Event Forecasting</a></em>.<p><strong>EMNLP 2026 Main Conference (Oral)</strong>.</p></li>
         <li><em><a href="https://arxiv.org/abs/2605.26186">SetupX: Can LLM Agents Learn from Past Failures in Functionality-Correct Code Repository Setup?</a></em>.<p><strong>First Author</strong>. Under review at <strong>ICLR 2027</strong>.</p></li>
+        <li><em><a href="https://arxiv.org/abs/2606.21013">Agentic Time Machine as an Infrastructure for Future-Event Forecasting</a></em>.<p><strong>EMNLP 2026 Main Conference (Oral)</strong>.</p></li>
+        <li><em><a href="https://openreview.net/forum?id=8MIM9QGcap">Live Skill Evolution for Forecasting Agents with Delayed Outcome Feedback</a></em>.<p>Under review at <strong>ICLR 2027</strong>.</p></li>
         <li><em><a href="https://arxiv.org/abs/2605.03596">Workspace-Bench 1.0: Benchmarking AI Agents on Workspace Tasks with Large-Scale File Dependencies</a></em>.<p><strong>NeurIPS 2026 (Poster)</strong>.</p></li>
         <li><em><a href="https://arxiv.org/abs/2509.23988">LLM/Agent-as-Data-Analyst: A Survey</a></em>.<p>Under review at <strong>IEEE TKDE</strong>.</p></li>
       </ol>
