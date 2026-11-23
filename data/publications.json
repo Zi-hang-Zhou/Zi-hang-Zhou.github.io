@@ -41,7 +41,7 @@
   },
   {
     "id": "live-skill-evolution",
-    "short": "Live Skill Evolution (Future-SE)",
+    "short": "Live Skill Evolution",
     "title": "Live Skill Evolution for Forecasting Agents with Delayed Outcome Feedback",
     "year": 2026,
     "url": "https://openreview.net/forum?id=8MIM9QGcap",
@@ -59,7 +59,7 @@
     "status": "Under review · ICLR 2027",
     "kind": "preprint",
     "statusSource": "OpenReview submission screenshot, November 15, 2026; ICLR 2027 Conference Submission, not an acceptance.",
-    "description": "Future-SE evolves a reusable natural-language skill library for forecasting agents using delayed outcome feedback, while keeping the base model and agent harness fixed.",
+    "description": "A framework for forecasting agents to refine reusable skills from delayed outcome feedback and apply them to future predictions.",
     "tags": [
       "Forecasting",
       "Skill evolution",

@@ -23,7 +23,7 @@ export function renderCV(download) {
         <p><em>B.Eng. Candidate in Artificial Intelligence</em></p>
         <ul class="clean-list">
           <li><p class="education-grades">GPA: 4.04 / 4.3 (Average Score: 92.7)</p></li>
-          <li><strong>Honors:</strong> National Scholarship (Top <strong>0.5%</strong>, Oct 2025);<br> Zhiyuan Honorary Scholarship;<br> Shanghai Jiao Tong University–Suzhou Industrial Park Scholarship.</li>
+          <li><strong>Honors:</strong> National Scholarship (Top <strong>0.5%</strong>, Oct 2025);<br> Zhiyuan Honorary Scholarship (2026);<br> Shanghai Jiao Tong University–Suzhou Industrial Park Scholarship (2026).</li>
           <li><strong>Early Admission:</strong> Admitted one year early (Grade 11) via the National College Entrance Exam (Gaokao); ranked in the top <strong>0.05%</strong> in Jiangsu Province.</li>
         </ul>
       </div>
